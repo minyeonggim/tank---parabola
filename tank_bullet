@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class bullet : MonoBehaviour
+{
+    Rigidbody2D rigidbody;
+    public float bulletSpeed;
+
+    void Start()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody.velocity = transform.position * bulletSpeed;
+
+        Invoke("DestroyBullet", 2); //수정. t초 후 오브젝트 제거 말고 지면에 닿은 후 t초 후 제거 하고 싶음
+
+    }
+
+    void FixedUpdate()  //Rigidbody 관련 코드는 void FixedUpdate() 안에 넣기
+    {
+        float angle = Mathf.Atan2(rigidbody.velocity.y, rigidbody.velocity.x) * Mathf.Rad2Deg; //역탄젠트 이용해서...
+        transform.eulerAngles = new Vector3(0, 0, angle);
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void DestroyBullet()
+    {
+        Destroy(gameObject);
+    }
+}
