@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class parabola : MonoBehaviour
+{
+    public float deg; //각도
+    public float turretSpeed; //포신스피드
+    public GameObject turret;
+    public GameObject bullet;
+
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            deg = deg + Time.deltaTime * turretSpeed; //시간변화량*화살표속도
+            float rad = deg * Mathf.Deg2Rad; //도를 라디안으로
+            turret.transform.localPosition = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)); //화살표는 Player 부속이기 때문에 localPdsition
+            turret.transform.eulerAngles = new Vector3(0, 0, deg); //"오일러 각" 사용
+
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            deg = deg - Time.deltaTime * turretSpeed;
+            float rad = deg * Mathf.Deg2Rad;
+            turret.transform.localPosition = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+            turret.transform.eulerAngles = new Vector3(0, 0, deg);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+                GameObject go = Instantiate(bullet); //Instantiate는 게임 실행 도중에 오브젝트 생성 가능(clone 생성)
+                go.transform.position = turret.transform.position;
+        }
+        
+    }
+}
