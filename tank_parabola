@@ -20,7 +20,7 @@ public class parabola : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
         {
             deg = deg + Time.deltaTime * turretSpeed; //시간변화량*화살표속도
-            float rad = deg * Mathf.Deg2Rad; //도를 라디안으로
+            float rad = deg * Mathf.Deg2Rad; //도를 라디안으로, 
             turret.transform.localPosition = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)); //화살표는 Player 부속이기 때문에 localPdsition
             turret.transform.eulerAngles = new Vector3(0, 0, deg); //"오일러 각" 사용
 
